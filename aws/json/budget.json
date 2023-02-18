@@ -1,6 +1,6 @@
 {
     "BudgetLimit": {
-        "Amount": "4",
+        "Amount": "5",
         "Unit": "USD"
     },
     "BudgetName": "Monthly Bootcamp Budget",
