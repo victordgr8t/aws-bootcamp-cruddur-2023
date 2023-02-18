@@ -46,15 +46,17 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 ✅ I Created and Generated AWS credentials for Iam admin user. I also assigned admin acces while i destroy my root account(joking LOL)
 
-✅ Setup MFA for Root and admin Account.
+✅ I Setup MFA for Root and admin Account.
 
-✅ Used CloudShell in AWS console.
+✅ I used CloudShell in AWS console.
 
 ✅ I configured AWS CLI in Gitpod and added AWS Access Keys and secret Access key to env variables while i stored them in gitpod using gp command. I added code to the gitpod.yml file to enable all my cinfiguration load automatically when i log in.
 
 ✅ I Configured 2 AWS Budget using Gitpod CLI and set a threshold which will send notification when exceeded
 
 ✅ I used the command line in Gitpod to create a Budget and a Billing Alarm
+
+✅ I demonstrated the use of using cost aloocation tag to track costing on AWS resources.
 
 ✅ I Created CI/CD Lucid Logical Architectual Diagram and conceptual Design Diagram on area Napkin
 
@@ -92,12 +94,14 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 <img width="711" alt="Screen Shot 2023-02-18 at 2 37 15 PM" src="https://user-images.githubusercontent.com/63635704/219866206-9f734936-55e8-4b04-bfda-be4b0b14be85.png">
 
+<img width="1440" alt="Screen Shot 2023-02-18 at 4 50 57 PM" src="https://user-images.githubusercontent.com/63635704/219872595-e7baf78d-1ef2-4769-88ba-32ed67cf76fa.png">
+
+
 
 
 ## I Configured 2 AWS Budget using Gitpod CLI and set a threshold which will send notification when exceeded
 
 <img width="1440" alt="Screen Shot 2023-02-17 at 4 05 33 PM" src="https://user-images.githubusercontent.com/63635704/219866539-f9f2ac96-aeca-4c71-ba64-6e313b4edb21.png">
-
 
 
 
@@ -110,6 +114,11 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 
 <img width="1171" alt="Screen Shot 2023-02-18 at 2 52 17 PM" src="https://user-images.githubusercontent.com/63635704/219866972-6a65bc77-9844-4448-8f57-9d3500333462.png">
+
+
+
+## I demonstrated the use of using cost aloocation tag to track costing easier on launched AWS resources.
+<img width="1440" alt="Screen Shot 2023-02-18 at 11 10 38 AM" src="https://user-images.githubusercontent.com/63635704/219872779-d84d5f9d-0064-4c02-a7bf-5350d6788269.png">
 
 
 
