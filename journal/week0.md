@@ -26,18 +26,22 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 
 
-                                              # WEEK 0 HOMEWORK 
+                                              WEEK 0 HOMEWORK ASSIGNMENTS 
+                                              
                         
-## Created and Generated AWS credentials for Iam admin user. I also assigned admin acces while i destroy my root account(joking LOL)
-# Setup MFA for Root and admin Account.
-
-
+## I Created and Generated AWS credentials for IAM admin user. I also assigned admin acces while i destroy my root account(joking LOL)
 <img width="1168" alt="Screen Shot 2023-02-18 at 2 06 04 PM" src="https://user-images.githubusercontent.com/63635704/219865194-1d5661a1-5758-4fab-9d5b-81e024339e20.png">
 
+
+
+
+## Setup MFA for Root and admin Account.
 <img width="1152" alt="Screen Shot 2023-02-18 at 2 03 22 PM" src="https://user-images.githubusercontent.com/63635704/219865212-394af7f5-7838-4e5b-a85d-b0e3b313aa2d.png">
 
 
-## Used CloudShell in AWS console.
+
+
+## I used CloudShell in AWS console.
 <img width="1429" alt="Screen Shot 2023-02-18 at 2 20 27 PM" src="https://user-images.githubusercontent.com/63635704/219865520-97308e92-f334-42a9-a26c-d40058b6aa09.png">
 
 
@@ -49,7 +53,7 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 
 
-## I Configured 2 AWS Budget using Gitpod CLI ans set a threshold which will send notification when exceeded
+## I Configured 2 AWS Budget using Gitpod CLI and set a threshold which will send notification when exceeded
 
 <img width="1440" alt="Screen Shot 2023-02-17 at 4 05 33 PM" src="https://user-images.githubusercontent.com/63635704/219866539-f9f2ac96-aeca-4c71-ba64-6e313b4edb21.png">
 
@@ -59,6 +63,7 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 ## I used the command line in Gitpod to create a Budget and a Billing Alarm
 
 <img width="1069" alt="Screen Shot 2023-02-18 at 7 36 24 AM" src="https://user-images.githubusercontent.com/63635704/219866650-ff79c5b3-b99c-4b23-8228-bb33a3ef0064.png">
+
 
 <img width="1093" alt="Screen Shot 2023-02-18 at 8 33 05 AM" src="https://user-images.githubusercontent.com/63635704/219866657-40308228-b000-4e50-8a7e-cc640c873015.png">
 
@@ -70,7 +75,14 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 ## I Created CI/CD Lucid Logical Architectual Diagram and conceptual Design Diagram on area Napkin
 
-I designed a logical diagram using lucid  [Logical Architectural Diagram](https://lucid.app/lucidchart/14600cd0-b751-47b9-8c4c-addf8c50ee84/edit?viewport_loc=-164%2C-68%2C3038%2C1539%2C0_0&invitationId=inv_1dcdfd90-7157-4ba1-b587-0fc47b34c86c)
+I designed a logical diagram using lucid  
+<img width="1402" alt="Screen Shot 2023-02-18 at 3 05 23 PM" src="https://user-images.githubusercontent.com/63635704/219868645-01527b42-27b1-4b7a-ae65-759500475bf4.png">
+[Logical Architectural Diagram](https://lucid.app/lucidchart/14600cd0-b751-47b9-8c4c-addf8c50ee84/edit?viewport_loc=-164%2C-68%2C3038%2C1539%2C0_0&invitationId=inv_1dcdfd90-7157-4ba1-b587-0fc47b34c86c)
+
+
+I designed on a napkin a conceptual diagram of the cruddur micro blogging app
+![IMG_1151](https://user-images.githubusercontent.com/63635704/219868763-c05d49d4-f72c-4505-80eb-7b31b52c5ad3.jpg)
+
 
 
 
@@ -82,9 +94,9 @@ I designed a logical diagram using lucid  [Logical Architectural Diagram](https:
 
 
 
-## I used EventBridge to hookup a Health Dashboard to SNS which will send notification when there is a health issue 
+## I used EventBridge from the management console to hookup a Health Dashboard to SNS which will send notification when there is a health issue 
 
-First i created an sns topic using aws cli in gitpod
+First I created an sns topic using AWS CLI in gitpod
 
 <img width="1047" alt="Screen Shot 2023-02-18 at 12 27 35 PM" src="https://user-images.githubusercontent.com/63635704/219867127-2e6b3a02-c1ac-4b8c-b239-244918c2b3a0.png">
 
@@ -92,6 +104,7 @@ Then i created an eventbridge and configured it to hook a health dashboard to th
 <img width="602" alt="Screen Shot 2023-02-18 at 12 31 34 PM" src="https://user-images.githubusercontent.com/63635704/219867163-74da2374-f0e1-4dfe-80b1-fd3a2b95d08e.png">
 
 <img width="1144" alt="Screen Shot 2023-02-18 at 12 32 21 PM" src="https://user-images.githubusercontent.com/63635704/219867274-1629d431-1828-49cb-98ac-b332d3d7ddf5.png">
+
 
 
 
