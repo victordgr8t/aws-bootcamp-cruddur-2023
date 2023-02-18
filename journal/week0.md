@@ -24,10 +24,12 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 ✅ I Opened a  ticket and requested support from AWS support
 
 
-                                              # WEEK 0 HOMEWORK #
+
+
+                                              # WEEK 0 HOMEWORK 
                         
-###Created and Generated AWS credentials for Iam admin user. I also assigned admin acces while i destroy my root account(joking LOL)
-###Setup MFA for Root and admin Account.
+## Created and Generated AWS credentials for Iam admin user. I also assigned admin acces while i destroy my root account(joking LOL)
+# Setup MFA for Root and admin Account.
 
 
 <img width="1168" alt="Screen Shot 2023-02-18 at 2 06 04 PM" src="https://user-images.githubusercontent.com/63635704/219865194-1d5661a1-5758-4fab-9d5b-81e024339e20.png">
@@ -35,24 +37,26 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 <img width="1152" alt="Screen Shot 2023-02-18 at 2 03 22 PM" src="https://user-images.githubusercontent.com/63635704/219865212-394af7f5-7838-4e5b-a85d-b0e3b313aa2d.png">
 
 
-###Used CloudShell in AWS console.
+## Used CloudShell in AWS console.
 <img width="1429" alt="Screen Shot 2023-02-18 at 2 20 27 PM" src="https://user-images.githubusercontent.com/63635704/219865520-97308e92-f334-42a9-a26c-d40058b6aa09.png">
 
 
 
-###I configured AWS CLI in Gitpod and added AWS Access Keys and secret Access key to env variables while i stored them in gitpod using gp command. I added code to the gitpod.yml file to enable all my cinfiguration load automatically when i log in.
+
+## I configured AWS CLI in Gitpod and added AWS Access Keys and secret Access key to env variables while i stored them in gitpod using gp command. I added code to the gitpod.yml file to enable all my cinfiguration load automatically when i log in.
 
 <img width="711" alt="Screen Shot 2023-02-18 at 2 37 15 PM" src="https://user-images.githubusercontent.com/63635704/219866206-9f734936-55e8-4b04-bfda-be4b0b14be85.png">
 
 
 
-### I Configured 2 AWS Budget using Gitpod CLI ans set a threshold which will send notification when exceeded
+## I Configured 2 AWS Budget using Gitpod CLI ans set a threshold which will send notification when exceeded
 
 <img width="1440" alt="Screen Shot 2023-02-17 at 4 05 33 PM" src="https://user-images.githubusercontent.com/63635704/219866539-f9f2ac96-aeca-4c71-ba64-6e313b4edb21.png">
 
 
 
-###I used the command line in Gitpod to create a Budget and a Billing Alarm
+
+## I used the command line in Gitpod to create a Budget and a Billing Alarm
 
 <img width="1069" alt="Screen Shot 2023-02-18 at 7 36 24 AM" src="https://user-images.githubusercontent.com/63635704/219866650-ff79c5b3-b99c-4b23-8228-bb33a3ef0064.png">
 
@@ -63,20 +67,22 @@ I went further by completing the Homework stretch Assignments and a bit more to 
 
 
 
-###I Created CI/CD Lucid Logical Architectual Diagram and conceptual Design Diagram on area Napkin
+
+## I Created CI/CD Lucid Logical Architectual Diagram and conceptual Design Diagram on area Napkin
 
 I designed a logical diagram using lucid  [Logical Architectural Diagram](https://lucid.app/lucidchart/14600cd0-b751-47b9-8c4c-addf8c50ee84/edit?viewport_loc=-164%2C-68%2C3038%2C1539%2C0_0&invitationId=inv_1dcdfd90-7157-4ba1-b587-0fc47b34c86c)
 
 
 
-###I Create a cloudwatch Alarm via AWS CLI 
+## I Create a cloudwatch Alarm via AWS CLI 
 <img width="1372" alt="Screen Shot 2023-02-18 at 8 36 00 AM" src="https://user-images.githubusercontent.com/63635704/219867026-55b14449-2ad1-4a39-826e-95febfac584a.png">
 
 <img width="1429" alt="Screen Shot 2023-02-18 at 8 39 03 AM" src="https://user-images.githubusercontent.com/63635704/219867036-11a5c9f0-9a62-4769-ad42-7d981560f5b3.png">
 
 
 
-###I used EventBridge to hookup a Health Dashboard to SNS which will send notification when there is a health issue 
+
+## I used EventBridge to hookup a Health Dashboard to SNS which will send notification when there is a health issue 
 
 First i created an sns topic using aws cli in gitpod
 
@@ -89,8 +95,7 @@ Then i created an eventbridge and configured it to hook a health dashboard to th
 
 
 
-
-###I Opened a  ticket and requested support from AWS support
+## I Opened a  ticket and requested support from AWS support
 <img width="1140" alt="Screen Shot 2023-02-17 at 11 57 52 AM" src="https://user-images.githubusercontent.com/63635704/219868019-2fb54b0d-27b2-49c8-ae52-ed3d4721a507.png">
 
 They replied to my issue giving me solutions which I applied and worked perfectly
