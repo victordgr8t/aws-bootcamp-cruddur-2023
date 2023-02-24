@@ -198,11 +198,157 @@ sudo apt install -y postgresql-client-13 libpq-dev
      
 ### Next we write a flask backend enpoint for notifications
 
+- First we create a file called notifications_activities.py inside ./backend_flask/services folder and input code below.
+```sh
+from datetime import datetime, timedelta, timezone
+class NotificationsActivities:
+  def run():
+    now = datetime.now(timezone.utc).astimezone()
+    results = [{
+      'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
+      'handle':  'Elon Musk',
+      'message': 'Who let the Doge out!',
+      'created_at': (now - timedelta(days=2)).isoformat(),
+      'expires_at': (now + timedelta(days=5)).isoformat(),
+      'likes_count': 5,
+      'replies_count': 1,
+      'reposts_count': 0,
+      'replies': [{
+        'uuid': '26e12864-1c26-5c3a-9658-97a10f8fea67',
+        'reply_to_activity_uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
+        'handle':  'Worf',
+        'message': 'This post has no honor!',
+        'likes_count': 0,
+        'replies_count': 0,
+        'reposts_count': 0,
+        'created_at': (now - timedelta(days=2)).isoformat()
+      }],
+    },
+    
+    ]
+    return results
+```
+- next we open app.py file and update code below
+
+``` sh
+@app.route("/api/activities/notifications", methods=['GET'])
+def data_notifications():
+  data = NotificationsActivities.run()
+  return data, 200
+
+```
+<img width="1022" alt="Screen Shot 2023-02-24 at 7 01 24 PM" src="https://user-images.githubusercontent.com/63635704/221241534-d5f1d8b9-5834-442b-b13f-185d6657e36b.png">
 
 
 
 
-### Next we write a react page for notifications
+### Next we update our frontend folder which is written in javascript & react page to correspond with the backend for notifications
 
+- First update the app.js file by adding codes below 
+```sh
+import NotificationsFeedPage from './pages/NotificationsFeedPage';
 
+path: "/notifications",
+    element: <NotificationsFeedPage />
+
+```
+
+<img width="920" alt="Screen Shot 2023-02-24 at 7 12 02 PM" src="https://user-images.githubusercontent.com/63635704/221243794-23c32873-1f2a-4c23-9af1-284e615a8247.png">
+
+- Under pages create  two files notificationsFeedPage.js & notificationsFeedPage.css
+```sh
+import './NotificationsFeedPage.css';
+import React from "react";
+
+import DesktopNavigation  from '../components/DesktopNavigation';
+import DesktopSidebar     from '../components/DesktopSidebar';
+import ActivityFeed from '../components/ActivityFeed';
+import ActivityForm from '../components/ActivityForm';
+import ReplyForm from '../components/ReplyForm';
+
+// [TODO] Authenication
+import Cookies from 'js-cookie'
+
+export default function NotificationsFeedPage() {
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
+  const dataFetchedRef = React.useRef(false);
+
+  const loadData = async () => {
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications`
+      const res = await fetch(backend_url, {
+        method: "GET"
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setActivities(resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkAuth = async () => {
+    console.log('checkAuth')
+    // [TODO] Authenication
+    if (Cookies.get('user.logged_in')) {
+      setUser({
+        display_name: Cookies.get('user.name'),
+        handle: Cookies.get('user.username')
+      })
+    }
+  };
+
+  React.useEffect(()=>{
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+
+    loadData();
+    checkAuth();
+  }, [])
+
+  return (
+    <article>
+      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
+      <div className='content'>
+        <ActivityForm  
+          popped={popped}
+          setPopped={setPopped} 
+          setActivities={setActivities} 
+        />
+        <ReplyForm 
+          activity={replyActivity} 
+          popped={poppedReply} 
+          setPopped={setPoppedReply} 
+          setActivities={setActivities} 
+          activities={activities} 
+        />
+        <ActivityFeed 
+          title="Notifications" 
+          setReplyActivity={setReplyActivity} 
+          setPopped={setPoppedReply} 
+          activities={activities} 
+        />
+      </div>
+      <DesktopSidebar user={user} />
+    </article>
+  );
+}
+
+```
+
+- Next we run a docker compose up command to implement new changes.
+  - We open all the ports fromm the port tab next to the terminal, then we click the url for port 3000 
+
+### Final result - the image below shows that our micro-blogging app called cruddur is coming to life gradually :)
+
+<img width="1141" alt="Screen Shot 2023-02-24 at 7 21 23 PM" src="https://user-images.githubusercontent.com/63635704/221248828-cc461750-5a3c-4b68-940c-cc3890d3698c.png">
+<img width="1125" alt="Screen Shot 2023-02-24 at 7 31 46 PM" src="https://user-images.githubusercontent.com/63635704/221248856-78fb1c61-666f-4345-aca7-8a2bab70a91e.png">
 
