@@ -163,9 +163,8 @@ sudo apt install -y postgresql-client-13 libpq-dev
 ```
 
 
-   - Next we run the docker compose up command to get postrges and dynamodb running
+   - Next we run the docker compose up command to get postrges and dynamodb containers up & running
    
-   - Next we test if both service are installed and running smoothly as expected.
    
    - Next we will update our gitpod.yml file with the postgres intallation command to automatically install when opened as shown below.
    
@@ -178,9 +177,9 @@ sudo apt install -y postgresql-client-13 libpq-dev
       sudo apt install -y postgresql-client-13 libpq-dev
 ``` 
 
+  - Next step:- We test if both service are installed and running smoothly as expected.
 
-
-   - Next we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate the service efficiently
+   - First we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate the service efficiently.
       - Once installed navigate to database explorer on the left pane on vscode click add connection to set up. 
       - Make sure to set password and click connect then type in the commands below and follow the prompt to test if postgres is configure and works perfectly. Remember to put the password you set when configuring the the connection in database explorer.
 
