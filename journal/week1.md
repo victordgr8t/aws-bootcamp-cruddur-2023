@@ -68,7 +68,7 @@ networks:
 
 Before running the docker up command, first install the dependencies for the backend and frontend individually
 
-#Backend
+# Backend
 ```sh
 cd backend-flask
 export FRONTEND_URL="*"
@@ -77,7 +77,7 @@ pip3 install -r requirements.txt
 python3 -m flask run --host=0.0.0.0 --port=4567
 
 ```
-#Frontend
+# Frontend
 ```sh
 cd frontend-react-js
 npm install
