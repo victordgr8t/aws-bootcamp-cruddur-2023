@@ -14,19 +14,12 @@ Overall, we made significant progress in the second week of building the Cruddur
 
 # Tasks completed  in Week 1
 
-First we 'cd' into the backend directory then run the following command which will install flask and map port 4567 to the backend which can be viewd on the browser.
 
-```sh
-
-python3 -m flask run --host=0.0.0.0 --port=4567
-
-```
-
-# We have two options to perform the next task
+### We have two options to perform the next task
 
 - First we create a ' docker-compose.yml ' file then define all dependencies & commands for both frontend and backend then build and run 
 - secondly we can create a dockerfile for each (frontend and backend) define dependencies then create a network. 
-- Next build the docker images then run the containers with the docker network and assign a port to the container to enable tcp connection or https access. 
+  - Next build the docker images then run the containers with the docker network and assign a port to the container to enable tcp connection or https access. 
 
 ```sh
 docker run --name <container_name> --network container_network -d <container_name>
@@ -34,7 +27,7 @@ docker run --name <container_name> --network container_network -d -p <****:****>
 ```
 
 I will choose the first option which is very efficient and less coding 
-- create a docker-compose.yml filen in the root of the project
+- create a docker-compose.yml file in the root directory of the project
 
 ```sh
 version: "3.8"
@@ -82,14 +75,14 @@ npm install
 
 ```
 
-next we run the docker compose command, be sure to return to the root folder of the project before running the commands
+Next we run the docker compose command, make sure to return to the root folder of the project to avoid mistakes
 
 ```sh
 docker compose up 
 
 ```
 
-- make sure to unlock the port on the ports tab next to terminal in vscode
+- Make sure to unlock the port on the ports tab next to terminal in vscode
 - Unlock the link for 4567 & 3000 to enable view in  browser
 - append to the url to `/api/activities/home` for 4567 to view contents
 
@@ -97,6 +90,8 @@ docker compose up
 <img width="994" alt="Screen Shot 2023-02-24 at 2 22 38 PM" src="https://user-images.githubusercontent.com/63635704/221178232-c74723f3-796d-4739-8577-470e948e8778.png">
 
 <img width="1304" alt="Screen Shot 2023-02-24 at 3 14 26 PM" src="https://user-images.githubusercontent.com/63635704/221187961-38735ce5-f659-418d-8eb9-39c8c3e5d526.png">
+
+<img width="761" alt="Screen Shot 2023-02-24 at 3 31 35 PM" src="https://user-images.githubusercontent.com/63635704/221191240-5c6fc900-b9dc-43df-90d4-5e106f00cf37.png">
 
 
 # We should get this result if the backend and frontend are communicating successfully
