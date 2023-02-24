@@ -22,13 +22,14 @@ Overall, we made significant progress in the second week of building the Cruddur
   - Next build the docker images then run the containers with the docker network and assign a port to the container to enable tcp connection or https access. 
 
 ```sh
-docker run --name <container_name> --network container_network -d <container_name>
-docker run --name <container_name> --network container_network -d -p <****:****> <container_name>
+docker run --name <container_name> --network <network_name> -d <container_name>
+docker run --name <container_name> --network <network_name> -d -p <****:****> <container_name>
 ```
 
 
 I will choose the first option which is very efficient and less coding 
-- create a docker-compose.yml file in the root directory of the project
+
+- Now i will create a docker-compose.yml file in the root directory of the project with code shown below.
 
 ```sh
 version: "3.8"
@@ -59,7 +60,7 @@ networks:
 ```
 
 
-Before running the docker up command, first install the dependencies for the backend and frontend individually
+Before running the docker up command, first install the dependencies for the backend and frontend individually.
 
 ### Backend
 ```sh
@@ -79,7 +80,7 @@ npm install
 ```
 
 
-Next we run the docker compose command, make sure to return to the root folder of the project to avoid mistakes
+Next we run the docker compose command, make sure to return to the root folder of the project to avoid intalling in the wrong folder.
 
 ```sh
 docker compose up 
@@ -163,7 +164,7 @@ sudo apt install -y postgresql-client-13 libpq-dev
 ```
 
 
-   - Next we run the docker compose up command to get postrges and dynamodb containers up & running
+   - Next we run the docker compose up command to get postrges and dynamodb containers up & running.
    
    
    - Next we will update our gitpod.yml file with the postgres intallation command to automatically install when opened as shown below.
@@ -177,11 +178,13 @@ sudo apt install -y postgresql-client-13 libpq-dev
       sudo apt install -y postgresql-client-13 libpq-dev
 ``` 
 
-  - Next step:- We test if both service are installed and running smoothly as expected.
+  - Next step:- We test if both services are installed and running smoothly as expected.
 
-   - First we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate the service efficiently.
+   - First we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate through the service efficiently.
+   
       - Once installed navigate to database explorer on the left pane on vscode click add connection to set up. 
       - Make sure to set password and click connect then type in the commands below and follow the prompt to test if postgres is configure and works perfectly. Remember to put the password you set when configuring the the connection in database explorer.
+
 
 ```sh
  psql -Upostgres --host localhost
