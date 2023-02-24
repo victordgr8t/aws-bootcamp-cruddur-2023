@@ -59,7 +59,7 @@ networks:
 
 Before running the docker up command, first install the dependencies for the backend and frontend individually
 
-# Backend
+### Backend
 ```sh
 cd backend-flask
 export FRONTEND_URL="*"
@@ -68,7 +68,7 @@ pip3 install -r requirements.txt
 python3 -m flask run --host=0.0.0.0 --port=4567
 
 ```
-# Frontend
+### Frontend
 ```sh
 cd frontend-react-js
 npm install
@@ -96,4 +96,68 @@ docker compose up
 
 # We should get this result if the backend and frontend are communicating successfully
 <img width="1222" alt="Screen Shot 2023-02-24 at 3 12 56 PM" src="https://user-images.githubusercontent.com/63635704/221188018-da66f458-ce1a-4bd9-a6e6-04d9616499e1.png">
+
+
+## Next step we will add DynamoDB Local and Postgres in our containers 
+Dynamodb and Postgres will be used in a later time but for this task we are required to add them to the containers.
+
+- we will write codes for both dynamo and postrges and update it in our docker-compose.yml file.
+```sh
+services:
+  db:
+      image: postgres:13-alpine
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+      ports:
+        - '5432:5432'
+      volumes: 
+        - db:/var/lib/postgresql/data
+
+  dynamodb-local:
+      # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+      # We needed to add user:root to get this working.
+      user: root
+      command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+      image: "amazon/dynamodb-local:latest"
+      container_name: dynamodb-local
+      ports:
+        - "8000:8000"
+      volumes:
+        - "./docker/dynamodb:/home/dynamodblocal/data"
+      working_dir: /home/dynamodblocal
+
+```
+
+- Then we will input command below one at a time to install postgres locally.
+
+```sh
+curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install -y postgresql-client-13 libpq-dev
+
+```
+   - Next we run the docker compose up command to get postrges and dynamodb running
+   
+   - Next we test if both service are installed and running smoothly as expected.
+   
+   - Next we will update our gitpod.yml file with the postgres intallation command to automatically install when opened.
+   - Next we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate the service efficiently
+    - Once installed navigate to database explorer on the left pane on vscode click add connection set ip ad shown amke sure to set password type in the commands below to test if postgres is configure and works perfectly
+
+```sh
+ psql -Upostgres --host localhost
+ 
+``` 
+
+### Below is a screenshot of what to expect if service is configured correctly
+<img width="1195" alt="Screen Shot 2023-02-24 at 4 00 36 PM" src="https://user-images.githubusercontent.com/63635704/221198392-daf48673-3d05-4019-a21b-bcc66b2d027d.png">
+ 
+ 
+     
+
+
+
 
