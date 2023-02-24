@@ -34,7 +34,7 @@ docker run --name <container_name> --network container_network -d -p <****:****>
 ```
 
 I will choose the first option which is very efficient and less coding 
--create a docker-compose.yml filen in the root of the project
+- create a docker-compose.yml filen in the root of the project
 
 ```sh
 version: "3.8"
