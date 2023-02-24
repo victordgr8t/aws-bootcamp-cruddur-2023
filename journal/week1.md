@@ -93,6 +93,8 @@ docker compose up
 - Unlock the link for 4567 & 3000 to enable view in  browser
 - append to the url to `/api/activities/home` for 4567 to view contents
 
+# We should get the results below if the everything works as intended
+
 <img width="1141" alt="Screen Shot 2023-02-24 at 2 21 34 PM" src="https://user-images.githubusercontent.com/63635704/221177949-0f6d7876-1b5e-42f8-a2ab-ab50c85b6349.png">
 <img width="994" alt="Screen Shot 2023-02-24 at 2 22 38 PM" src="https://user-images.githubusercontent.com/63635704/221178232-c74723f3-796d-4739-8577-470e948e8778.png">
 
