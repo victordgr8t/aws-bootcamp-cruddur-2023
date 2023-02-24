@@ -93,12 +93,12 @@ docker compose up
 - Unlock the link for 4567 & 3000 to enable view in  browser
 - append to the url to `/api/activities/home` for 4567 to view contents
 
-# We should get the results below if the everything works as intended
-
-<img width="1141" alt="Screen Shot 2023-02-24 at 2 21 34 PM" src="https://user-images.githubusercontent.com/63635704/221177949-0f6d7876-1b5e-42f8-a2ab-ab50c85b6349.png">
+### We should get the results below if the everything works as intended
 <img width="994" alt="Screen Shot 2023-02-24 at 2 22 38 PM" src="https://user-images.githubusercontent.com/63635704/221178232-c74723f3-796d-4739-8577-470e948e8778.png">
 
 <img width="1304" alt="Screen Shot 2023-02-24 at 3 14 26 PM" src="https://user-images.githubusercontent.com/63635704/221187961-38735ce5-f659-418d-8eb9-39c8c3e5d526.png">
-<img width="692" alt="Screen Shot 2023-02-24 at 3 15 33 PM" src="https://user-images.githubusercontent.com/63635704/221187970-2d6ac1b6-68a7-43da-8204-7d3a74827d40.png">
+
+
+# We should get this result if the backend and frontend are communicating successfully
 <img width="1222" alt="Screen Shot 2023-02-24 at 3 12 56 PM" src="https://user-images.githubusercontent.com/63635704/221188018-da66f458-ce1a-4bd9-a6e6-04d9616499e1.png">
 
