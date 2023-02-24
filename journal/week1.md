@@ -26,6 +26,7 @@ docker run --name <container_name> --network container_network -d <container_nam
 docker run --name <container_name> --network container_network -d -p <****:****> <container_name>
 ```
 
+
 I will choose the first option which is very efficient and less coding 
 - create a docker-compose.yml file in the root directory of the project
 
@@ -57,6 +58,7 @@ networks:
     
 ```
 
+
 Before running the docker up command, first install the dependencies for the backend and frontend individually
 
 ### Backend
@@ -68,6 +70,7 @@ pip3 install -r requirements.txt
 python3 -m flask run --host=0.0.0.0 --port=4567
 
 ```
+
 ### Frontend
 ```sh
 cd frontend-react-js
@@ -75,12 +78,14 @@ npm install
 
 ```
 
+
 Next we run the docker compose command, make sure to return to the root folder of the project to avoid mistakes
 
 ```sh
 docker compose up 
 
 ```
+
 
 - Make sure to unlock the port on the ports tab next to terminal in vscode
 - Unlock the link for 4567 & 3000 to enable view in  browser
@@ -94,14 +99,29 @@ docker compose up
 <img width="761" alt="Screen Shot 2023-02-24 at 3 31 35 PM" src="https://user-images.githubusercontent.com/63635704/221191240-5c6fc900-b9dc-43df-90d4-5e106f00cf37.png">
 
 
-# We should get this result if the backend and frontend are communicating successfully
+### We should get this result if the backend and frontend are communicating successfully
 <img width="1222" alt="Screen Shot 2023-02-24 at 3 12 56 PM" src="https://user-images.githubusercontent.com/63635704/221188018-da66f458-ce1a-4bd9-a6e6-04d9616499e1.png">
+
+  - Next we will add some code  to the gitpod.yml to spin up installation of dependencies when opened 
+
+```sh
+- name: Initialize Frontend and Backend
+    init: |
+      cd /workspace/aws-bootcamp-cruddur-2023/backend-flask
+      pip install --upgrade pip
+      pip3 install -r requirements.txt
+      cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
+      npm install  
+
+```
+
 
 
 ## Next step we will add DynamoDB Local and Postgres in our containers 
-Dynamodb and Postgres will be used in a later time but for this task we are required to add them to the containers.
+Dynamodb and Postgres will be used for a later time but for this task we are required to add them to the containers.
 
 - we will write codes for both dynamo and postrges and update it in our docker-compose.yml file.
+
 ```sh
 services:
   db:
@@ -130,6 +150,8 @@ services:
 
 ```
 
+
+
 - Then we will input command below one at a time to install postgres locally.
 
 ```sh
@@ -139,18 +161,33 @@ sudo apt update
 sudo apt install -y postgresql-client-13 libpq-dev
 
 ```
+
+
    - Next we run the docker compose up command to get postrges and dynamodb running
    
    - Next we test if both service are installed and running smoothly as expected.
    
-   - Next we will update our gitpod.yml file with the postgres intallation command to automatically install when opened.
+   - Next we will update our gitpod.yml file with the postgres intallation command to automatically install when opened as shown below.
+   
+```sh
+   - name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+``` 
+
+
+
    - Next we install the postrges extension on vscode called 'PostGreSQL' to enable us navigate the service efficiently
-    - Once installed navigate to database explorer on the left pane on vscode click add connection set ip ad shown amke sure to set password type in the commands below to test if postgres is configure and works perfectly
+      - Once installed navigate to database explorer on the left pane on vscode click add connection to set up. 
+      - Make sure to set password and click connect then type in the commands below and follow the prompt to test if postgres is configure and works perfectly. Remember to put the password you set when configuring the the connection in database explorer.
 
 ```sh
  psql -Upostgres --host localhost
- 
 ``` 
+
 
 ### Below is a screenshot of what to expect if service is configured correctly
 <img width="1195" alt="Screen Shot 2023-02-24 at 4 00 36 PM" src="https://user-images.githubusercontent.com/63635704/221198392-daf48673-3d05-4019-a21b-bcc66b2d027d.png">
