@@ -253,9 +253,11 @@ path: "/notifications",
 
 ```
 
+
+
 <img width="920" alt="Screen Shot 2023-02-24 at 7 12 02 PM" src="https://user-images.githubusercontent.com/63635704/221243794-23c32873-1f2a-4c23-9af1-284e615a8247.png">
 
-- Under pages create  two files notificationsFeedPage.js & notificationsFeedPage.css
+- Under pages create  two files notificationsFeedPage.js & notificationsFeedPage.css 
 ```sh
 import './NotificationsFeedPage.css';
 import React from "react";
@@ -344,11 +346,18 @@ export default function NotificationsFeedPage() {
 
 ```
 
+
+
 - Next we run a docker compose up command to implement new changes.
   - We open all the ports fromm the port tab next to the terminal, then we click the url for port 3000 
+
+
 
 ### Final result - the image below shows that our micro-blogging app called cruddur is coming to life gradually :)
 
 <img width="1141" alt="Screen Shot 2023-02-24 at 7 21 23 PM" src="https://user-images.githubusercontent.com/63635704/221248828-cc461750-5a3c-4b68-940c-cc3890d3698c.png">
+
+
+# Click the notification button to get to the notifications page we just created.
 <img width="1125" alt="Screen Shot 2023-02-24 at 7 31 46 PM" src="https://user-images.githubusercontent.com/63635704/221248856-78fb1c61-666f-4345-aca7-8a2bab70a91e.png">
 
