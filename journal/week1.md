@@ -196,7 +196,13 @@ sudo apt install -y postgresql-client-13 libpq-dev
  
  
      
+### Next we write a flask backend enpoint for notifications
 
+
+
+
+
+### Next we write a react page for notifications
 
 
 
