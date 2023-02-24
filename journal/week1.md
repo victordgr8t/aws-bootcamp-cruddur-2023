@@ -14,3 +14,10 @@ Overall, we made significant progress in the second week of building the Cruddur
 
 # Tasks completed  in Week 1
 
+First we 'cd' into the backend directory then run the following command which will install flask and map port 4567 to the backend which can be viewd on the browser.
+
+```sh
+
+python3 -m flask run --host=0.0.0.0 --port=4567
+
+```
