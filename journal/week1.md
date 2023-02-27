@@ -594,3 +594,19 @@ resource "aws_instance" "Wordpress_Instance" {
    I got the results below
 
 <img width="1287" alt="Screen Shot 2023-02-27 at 1 58 52 PM" src="https://user-images.githubusercontent.com/63635704/221558385-c5796176-f010-40e8-8bd1-105986dfcfae.png">
+
+
+
+
+# CONTAINER SECURITY
+
+In this task I will use synk to scan our containers for security vulnerabilities. 
+
+### What does SYNK do? 
+Snyk is a platform allowing you to scan, prioritize, and fix security vulnerabilities in your own code, open source dependencies, container images, and Infrastructure as Code (IaC) configurations.
+
+I signed up on synk, then added my github account to synk by granting access to synk to enable synk scan my folders for security vulnerabilities.
+Synk scanned my account and found some security vulnerabilities which it highlighted me to take immediate action. Find result below
+
+
+<img width="1398" alt="Screen Shot 2023-02-27 at 7 00 09 PM" src="https://user-images.githubusercontent.com/63635704/221633708-df3b9452-0884-4b46-a2c4-91ca7dedc427.png">
