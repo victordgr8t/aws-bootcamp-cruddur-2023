@@ -386,7 +386,6 @@ CMD ["sh", "/hello-python/docker-script.sh"]
    ``` 
    docker build -t app .
    docker run app
-   
    ```
  
  Got the result below which display  'Hello World'
@@ -419,7 +418,7 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
  
  
    - first I created a Dockerfile  file with code below 
-   - 
+    
    ``` 
          # Build executable stage
       FROM golang:alpine AS build
@@ -463,20 +462,6 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
       
       ```
      
-   -  lastly i created a docker compose file with code below 
-   
-       ```
-          version: '3'
-
-          services:
-            my-service:
-              build:
-                context: .
-                dockerfile: Dockerfile
-              ports:
-                - "8080:8080"
-              
-       ```
        
        
    In the docker compose file I made reference to the dockerfile i created earlier.
@@ -504,9 +489,7 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    
      - first I have to create a docker-compose.yml file with code below
      
-     ``` 
-        version: '3'
-
+     ```
         version: '3'
 
         services:
