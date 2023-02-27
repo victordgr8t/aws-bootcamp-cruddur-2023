@@ -383,8 +383,11 @@ CMD ["sh", "/hello-python/docker-script.sh"]
  ```
  I Modified my Dockerfile to call the script instead of directly executing the command.
  
- Next I run ``` docker build -t app . ```
- Then i run ``` docker run app ```
+   ``` 
+   docker build -t app .
+   docker run app
+   
+   ```
  
  Got the result below which display  'Hello World'
  <img width="741" alt="Screen Shot 2023-02-27 at 12 57 49 PM" src="https://user-images.githubusercontent.com/63635704/221546241-6526ed51-6856-4699-8049-32291833c58a.png">
@@ -396,9 +399,11 @@ CMD ["sh", "/hello-python/docker-script.sh"]
   -  To push an image to dockerhub first you need to create a repository on dockerhub
   -  next type on the terminal command  below
   
-      ```  docker login username=your_username 
-           docker tag app vicdg8t/app:v1.0 
-           docker push vicdg8t/app:v1.0 ```
+      ```  
+        docker login username=your_username 
+        docker tag app vicdg8t/app:v1.0 
+        docker push vicdg8t/app:v1.0 
+      ```
            
   I got the results below         
 <img width="761" alt="Screen Shot 2023-02-27 at 1 12 05 PM" src="https://user-images.githubusercontent.com/63635704/221549623-e0f360b4-7f50-44a9-825b-88ac73a72a2e.png">
