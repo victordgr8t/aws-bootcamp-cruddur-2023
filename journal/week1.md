@@ -457,7 +457,6 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
       
       ```
           module myapp
-
           go 1.16
       
       ```
@@ -468,10 +467,11 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    
    run 
       
-      ```
-          docker build -t app:v1.0 . 
-          docker run app:v1.0 
-      ```  
+     ``` 
+         docker build -t app:v1.0 . 
+         docker run app:v1.0 
+         
+     ```  
       
    to get the result below which is a simple hello world app I built using go programming language
    
