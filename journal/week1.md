@@ -358,6 +358,238 @@ export default function NotificationsFeedPage() {
 <img width="1141" alt="Screen Shot 2023-02-24 at 7 21 23 PM" src="https://user-images.githubusercontent.com/63635704/221248828-cc461750-5a3c-4b68-940c-cc3890d3698c.png">
 
 
-# Click the notification button to get to the notifications page we just created.
+### Click the notification button to get to the notifications page we just created.
 <img width="1125" alt="Screen Shot 2023-02-24 at 7 31 46 PM" src="https://user-images.githubusercontent.com/63635704/221248856-78fb1c61-666f-4345-aca7-8a2bab70a91e.png">
 
+
+# HOMEWORK CHALLENGES
+### - Run the dockerfile CMD as an external script
+
+  - To run the CMD specified in a Dockerfile as an external script, I created a new script file containing the command and then modify the Dockerfile to call the script instead of directly executing the command as shown below...
+
+First created a docker-script.sh with command below
+```
+#!/bin/bash
+echo "Hello World"
+
+```
+ Next I created a Dockerfile with command below. 
+ ```
+ FROM python:3.8-alpine
+COPY . /hello-python
+WORKDIR /hello-python
+CMD ["sh", "/hello-python/docker-script.sh"]
+
+ ```
+ I Modified my Dockerfile to call the script instead of directly executing the command.
+ 
+ Next I run ``` docker build -t app . ```
+ Then i run ``` docker run app ```
+ 
+ Got the result below which display  'Hello World'
+ <img width="741" alt="Screen Shot 2023-02-27 at 12 57 49 PM" src="https://user-images.githubusercontent.com/63635704/221546241-6526ed51-6856-4699-8049-32291833c58a.png">
+ 
+ 
+ 
+### - Push and tag a image to DockerHub   
+
+  -  To push an image to dockerhub first you need to create a repository on dockerhub
+  -  next type on the terminal command  below
+  
+      ```  docker login username=your_username 
+           docker tag app vicdg8t/app:v1.0 
+           docker push vicdg8t/app:v1.0 ```
+           
+  I got the results below         
+<img width="761" alt="Screen Shot 2023-02-27 at 1 12 05 PM" src="https://user-images.githubusercontent.com/63635704/221549623-e0f360b4-7f50-44a9-825b-88ac73a72a2e.png">
+
+<img width="730" alt="Screen Shot 2023-02-27 at 1 13 49 PM" src="https://user-images.githubusercontent.com/63635704/221549629-b240367a-a1f5-4a3b-aa01-ea46f8b9beea.png">
+
+
+
+
+### - Use multi-stage building for a Dockerfile build
+
+Multi-stage builds allow you to use multiple 'FROM' statements in a single Dockerfile to create multiple temporary images, each with their own set of instructions, before creating a final image. The final image created is smaller which is the whole purpose of containers in the first place. 
+ 
+ 
+   - first I created a Dockerfile  file with code below 
+   - 
+   ``` 
+         # Build executable stage
+      FROM golang:alpine AS build
+
+      ADD . /app
+      WORKDIR /app
+      ADD main.go .
+      RUN go build -o app
+
+      # Build final image
+      FROM alpine:latest
+      RUN apk --no-cache add ca-certificates
+      WORKDIR /root/
+      COPY --from=build /app/app .
+
+      CMD ["./app"]
+   
+   ```
+   
+   
+   - next I created a ' go.mod and main.go' files respectively 
+      
+      ### main.go
+      ```
+      package main
+
+      import "fmt"
+
+      func main() {
+        fmt.Println("Hello, world!")
+      }
+
+      ```
+      
+      ### go.mod
+      
+      ```
+      module myapp
+
+      go 1.16
+      
+      ```
+     
+   -  lastly i created a docker compose file with code below 
+   
+       ```
+          version: '3'
+
+          services:
+            my-service:
+              build:
+                context: .
+                dockerfile: Dockerfile
+              ports:
+                - "8080:8080"
+              
+       ```
+       
+       
+   In the docker compose file I made reference to the dockerfile i created earlier.
+   
+   run 
+      
+      ```
+        docker build -t app:v1.0 . 
+        docker run app:v1.0 
+        
+      ```  
+      
+   to get the result below which is a simple hello world app I built using go programming language
+   
+   
+   <img width="957" alt="Screen Shot 2023-02-27 at 2 50 57 PM" src="https://user-images.githubusercontent.com/63635704/221569820-2df9a13c-6003-4898-ba7d-0c035e4597dd.png">
+
+
+
+
+
+### - Implement a healthcheck in the V3 Docker compose file
+
+   From the app I created with go in the previous task, I implemented a healthcheck on the container which will run with 'docker-compose up' cmd.
+   
+     - first I have to create a docker-compose.yml file with code below
+     
+     ``` 
+        version: '3'
+
+        version: '3'
+
+        services:
+          health-service:
+            build:
+              context: .
+              dockerfile: Dockerfile
+            ports:
+              - "8080:8080"
+            healthcheck:
+              test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
+              interval: 1m
+              timeout: 10s
+              retries: 3
+     
+     ```
+     
+   I made a reference in the file above to the dockerfile i created ealier which will run a healthcheck when ``` docker-compose up ``` is run
+
+
+
+
+### - Research best practices of Dockerfiles and attempt to implement it in your Dockerfile
+ 
+   - Use official base images whenever possible: Official base images are well-maintained and have fewer vulnerabilities. They are also updated regularly, which ensures that your container has the latest security patches.
+Keep your Dockerfile small and focused: Your Dockerfile should only include the necessary components to run your application. This helps keep the image size small and reduces the risk of vulnerabilities.
+    - Use multi-stage builds: Multi-stage builds allow you to build your application in one stage and then copy only the necessary files to the final image. This helps keep the image size small and reduces the attack surface.
+Use caching wisely: Caching can speed up the build process, but it can also cause issues if you don't use it properly. You should only cache layers that are unlikely to change frequently.
+    -   Avoid running commands as root: Running commands as root in a container can pose a security risk. You should switch to a non-root user as soon as possible in your Dockerfile.
+    - Use environment variables: Environment variables make it easy to configure your container without having to modify the Dockerfile. This can be especially useful if you want to use the same Dockerfile for different environments.
+    - Add labels to your images: Labels provide metadata about your image, such as the version number and build date. This can be helpful for tracking and debugging issues.
+
+
+
+### - Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
+
+    - First i visited the docker website, 
+    - then i downloaded the docker desktop for my operating system 
+    - then i followed the installation wizard to install on my computer
+    - Next i ran ``` systemctl enable docker.service \ systemctl start docker.service ```
+    - Next i ran ``` docker --version ``` to confirm installation
+
+
+
+### - Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
+ 
+ - First i launch an ec2 instance and passed user data with instructions to install wordpress and docker installed using terraform with command below
+    i update permission for the ec2 user so as to grant admin access hence i wont use sudo command 
+   
+```
+   provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "Wordpress_Instance" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  key_name      = "my-key-pair"
+  subnet_id     = "subnet-123456789"
+  vpc_security_group_ids = ["sg-123456789"]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              amazon-linux-extras install docker -y
+              service docker start
+              pip3 install --user docker-compose
+              usermod -a -G docker ec2-user
+              docker run -p 80:80 -d wordpress
+              EOF
+
+  tags = {
+    Name = "Wordpress_Instance"
+  }
+}
+
+   ```
+   
+   Next i ssh'ed into the created ec2 instance using ec2 instance-connect then typed in commands below to pull the docker image I pushed to my repo 
+   
+   ``` 
+      docker --version
+      docker ps 
+      systemctl status docker.service
+      docker pull vicdg8t/app:v1.0
+      docker images
+   ```
+   
+   I got the results below
+
+<img width="1287" alt="Screen Shot 2023-02-27 at 1 58 52 PM" src="https://user-images.githubusercontent.com/63635704/221558385-c5796176-f010-40e8-8bd1-105986dfcfae.png">
