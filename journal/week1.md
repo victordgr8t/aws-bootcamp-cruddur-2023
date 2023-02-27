@@ -515,22 +515,35 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
 ### - Research best practices of Dockerfiles and attempt to implement it in your Dockerfile
  
    - Use official base images whenever possible: Official base images are well-maintained and have fewer vulnerabilities. They are also updated regularly, which ensures that your container has the latest security patches.
-Keep your Dockerfile small and focused: Your Dockerfile should only include the necessary components to run your application. This helps keep the image size small and reduces the risk of vulnerabilities.
-    - Use multi-stage builds: Multi-stage builds allow you to build your application in one stage and then copy only the necessary files to the final image. This helps keep the image size small and reduces the attack surface.
-Use caching wisely: Caching can speed up the build process, but it can also cause issues if you don't use it properly. You should only cache layers that are unlikely to change frequently.
-    -   Avoid running commands as root: Running commands as root in a container can pose a security risk. You should switch to a non-root user as soon as possible in your Dockerfile.
-    - Use environment variables: Environment variables make it easy to configure your container without having to modify the Dockerfile. This can be especially useful if you want to use the same Dockerfile for different environments.
-    - Add labels to your images: Labels provide metadata about your image, such as the version number and build date. This can be helpful for tracking and debugging issues.
+   
+   - Keep your Dockerfile small and focused: Your Dockerfile should only include the necessary components to run your application. This helps keep the image size small and reduces the risk of vulnerabilities.
+   
+   - Use multi-stage builds: Multi-stage builds allow you to build your application in one stage and then copy only the necessary files to the final image. This helps keep the image size small and reduces the attack surface.
+   
+   - Use caching wisely: Caching can speed up the build process, but it can also cause issues if you don't use it properly. You should only cache layers that are unlikely to change frequently.
+   
+   -   Avoid running commands as root: Running commands as root in a container can pose a security risk. You should switch to a non-root user as soon as possible in your Dockerfile.
+   
+   - Use environment variables: Environment variables make it easy to configure your container without having to modify the Dockerfile. This can be especially useful if you want to use the same Dockerfile for different environments.
+   
+   - Add labels to your images: Labels provide metadata about your image, such as the version number and build date. This can be helpful for tracking and debugging issues.
 
 
 
 ### - Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
 
-    - First i visited the docker website, 
-    - then i downloaded the docker desktop for my operating system 
-    - then i followed the installation wizard to install on my computer
-    - Next i ran ``` systemctl enable docker.service \ systemctl start docker.service ```
-    - Next i ran ``` docker --version ``` to confirm installation
+   - First i visited the docker website, 
+   - then i downloaded the docker desktop for my operating system 
+   - then i followed the installation wizard to install on my computer
+   - Next i ran command below to confirm installation of docke ron my local machine
+   
+    
+    ```
+     systemctl enable docker.service 
+     systemctl start docker.service 
+     docker --version 
+     ```  
+     
 
 
 
@@ -540,12 +553,12 @@ Use caching wisely: Caching can speed up the build process, but it can also caus
     i update permission for the ec2 user so as to grant admin access hence i wont use sudo command 
    
 ```
-   provider "aws" {
+  provider "aws" {
   region = "us-east-1"
 }
 
 resource "aws_instance" "Wordpress_Instance" {
-  ami           = "ami-0c55b159cbfafe1f0"
+  ami           = "ami-01234567890"
   instance_type = "t2.micro"
   key_name      = "my-key-pair"
   subnet_id     = "subnet-123456789"
