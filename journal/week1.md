@@ -467,9 +467,9 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    
    run 
 
-       ``` 
-           docker build -t app:v1.0 . 
-           docker run app:v1.0 
+       ```sh 
+             docker build -t app:v1.0 . 
+             docker run app:v1.0 
 
        ```  
       
