@@ -369,23 +369,23 @@ export default function NotificationsFeedPage() {
 
 First created a docker-script.sh with command below
 ```
-#!/bin/bash
-echo "Hello World"
+    #!/bin/bash
+    echo "Hello World"
 
 ```
  Next I created a Dockerfile with command below. 
  ```
- FROM python:3.8-alpine
-COPY . /hello-python
-WORKDIR /hello-python
-CMD ["sh", "/hello-python/docker-script.sh"]
+    FROM python:3.8-alpine
+    COPY . /hello-python
+    WORKDIR /hello-python
+    CMD ["sh", "/hello-python/docker-script.sh"]
 
  ```
  I Modified my Dockerfile to call the script instead of directly executing the command.
  
    ``` 
-   docker build -t app .
-   docker run app
+       docker build -t app .
+       docker run app
    ```
  
  Got the result below which display  'Hello World'
@@ -399,9 +399,9 @@ CMD ["sh", "/hello-python/docker-script.sh"]
   -  next type on the terminal command  below
   
       ```  
-        docker login username=your_username 
-        docker tag app vicdg8t/app:v1.0 
-        docker push vicdg8t/app:v1.0 
+          docker login username=your_username 
+          docker tag app vicdg8t/app:v1.0 
+          docker push vicdg8t/app:v1.0 
       ```
            
   I got the results below         
@@ -420,7 +420,7 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    - first I created a Dockerfile  file with code below 
     
    ``` 
-         # Build executable stage
+       # Build executable stage
       FROM golang:alpine AS build
 
       ADD . /app
@@ -443,22 +443,22 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
       
       ### main.go
       ```
-      package main
+          package main
 
-      import "fmt"
+          import "fmt"
 
-      func main() {
-        fmt.Println("Hello, world!")
-      }
+          func main() {
+            fmt.Println("Hello, world!")
+          }
 
       ```
       
       ### go.mod
       
       ```
-      module myapp
+          module myapp
 
-      go 1.16
+          go 1.16
       
       ```
      
@@ -469,9 +469,8 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    run 
       
       ```
-        docker build -t app:v1.0 . 
-        docker run app:v1.0 
-        
+          docker build -t app:v1.0 . 
+          docker run app:v1.0 
       ```  
       
    to get the result below which is a simple hello world app I built using go programming language
@@ -487,23 +486,23 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
 
    From the app I created with go in the previous task, I implemented a healthcheck on the container which will run with 'docker-compose up' cmd.
    
-     - first I have to create a docker-compose.yml file with code below
+   - first I have to create a docker-compose.yml file with code below
      
      ```
-        version: '3'
+          version: '3'
 
-        services:
-          health-service:
-            build:
-              context: .
-              dockerfile: Dockerfile
-            ports:
-              - "8080:8080"
-            healthcheck:
-              test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
-              interval: 1m
-              timeout: 10s
-              retries: 3
+          services:
+            health-service:
+              build:
+                context: .
+                dockerfile: Dockerfile
+              ports:
+                - "8080:8080"
+              healthcheck:
+                test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
+                interval: 1m
+                timeout: 10s
+                retries: 3
      
      ```
      
@@ -538,10 +537,11 @@ Multi-stage builds allow you to use multiple 'FROM' statements in a single Docke
    - Next i ran command below to confirm installation of docke ron my local machine
    
     
-    ```
-     systemctl enable docker.service 
-     systemctl start docker.service 
-     docker --version 
+     ```
+         systemctl enable docker.service 
+         systemctl start docker.service 
+         docker --version 
+         
      ```  
      
 
