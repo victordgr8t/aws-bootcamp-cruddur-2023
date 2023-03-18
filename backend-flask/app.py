@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import sys
 
 # Rollbar -----
 import os
@@ -24,6 +25,8 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+
+from lib.CognitoJwtToken import CognitoJwtToken
 
 # Honeycomb ----------
 from opentelemetry import trace
@@ -54,14 +57,21 @@ provider.add_span_processor(processor)
 # xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 # show this in the logs within the backend-flask app (STDOUT) 
-simple_processor = SimpleSpanProcessor(ConsoleSpanExporter)
-provider.add_span_processor(simple_processor)
+# simple_processor = SimpleSpanProcessor(ConsoleSpanExporter)
+# provider.add_span_processor(simple_processor)
 
 trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 
 app = Flask(__name__)
+
+
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
+)
 
 
 # X-Ray -----
@@ -168,6 +178,8 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
+  app.logger.debug("authenicated")
+  
   data = HomeActivities.run() # fix for Cloudwatch Log and removed now to avoid cost
   return data, 200
 
