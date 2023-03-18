@@ -228,10 +228,10 @@ We'll update ```ProfileInfo.js```
 ```js
       import { Auth } from 'aws-amplify';
 
-      const [cognitoErrors, setCognitoErrors] = React.useState('');
+      const [Errors, setErrors] = React.useState('');
 
       const onsubmit = async (event) => {
-        setCognitoErrors('')
+        setErrors('')
         event.preventDefault();
         try {
           Auth.signIn(username, password)
@@ -244,14 +244,14 @@ We'll update ```ProfileInfo.js```
           if (error.code == 'UserNotConfirmedException') {
             window.location.href = "/confirm"
           }
-          setCognitoErrors(error.message)
+          setErrors(error.message)
         }
         return false
       }
 
       let errors;
-      if (cognitoErrors){
-        errors = <div className='errors'>{cognitoErrors}</div>;
+      if (Errors){
+        errors = <div className='errors'>{Errors}</div>;
       }
 
       // just before submit component
@@ -278,7 +278,7 @@ On ```signup.js``` file we will update our code
 ```js
       import { Auth } from 'aws-amplify';
 
-      const [cognitoErrors, setCognitoErrors] = React.useState('');
+      const [Errors, setErrors] = React.useState('');
 
       const onsubmit = async (event) => {
         event.preventDefault();
@@ -300,14 +300,14 @@ On ```signup.js``` file we will update our code
             window.location.href = `/confirm?email=${email}`
         } catch (error) {
             console.log(error);
-            setCognitoErrors(error.message)
+            setErrors(error.message)
         }
         return false
       }
 
       let errors;
-      if (cognitoErrors){
-        errors = <div className='errors'>{cognitoErrors}</div>;
+      if (Errors){
+        errors = <div className='errors'>{Errors}</div>;
       }
 
       //before submit component
@@ -376,34 +376,25 @@ We will have to update our recoverypage file
 
    const onsubmit_send_code = async (event) => {
      event.preventDefault();
-     setCognitoErrors('')
+     setErrors('')
      Auth.forgotPassword(username)
      .then((data) => setFormState('confirm_code') )
-     .catch((err) => setCognitoErrors(err.message) );
+     .catch((err) => setErrors(err.message) );
      return false
    }
 
    const onsubmit_confirm_code = async (event) => {
      event.preventDefault();
-     setCognitoErrors('')
+     setErrors('')
      if (password == passwordAgain){
        Auth.forgotPasswordSubmit(username, code, password)
        .then((data) => setFormState('success'))
-       .catch((err) => setCognitoErrors(err.message) );
+       .catch((err) => setErrors(err.message) );
      } else {
-       setCognitoErrors('Passwords do not match')
+       setErrors('Passwords do not match')
      }
      return false
    }
-
-   ## Authenticating Server Side
-
-   Add in the `HomeFeedPage.js` a header eto pass along the access token
-
-   ```js
-     headers: {
-       Authorization: `Bearer ${localStorage.getItem("access_token")}`
-     }
 
 ```
 
