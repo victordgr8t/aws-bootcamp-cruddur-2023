@@ -26,7 +26,7 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
-from lib.CognitoJwtToken import CognitoJwtToken
+from lib.CognitoJwtToken import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 # Honeycomb ----------
 from opentelemetry import trace
@@ -75,7 +75,7 @@ cognito_jwt_token = CognitoJwtToken(
 
 
 # X-Ray -----
-# Remvoed for cost saving
+# Removed for cost saving
 # XRayMiddleware(app, xray_recorder)
 
 
@@ -177,10 +177,21 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture('activities_home')
 def data_home():
-  app.logger.debug("authenicated")
-  
-  data = HomeActivities.run() # fix for Cloudwatch Log and removed now to avoid cost
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    # authenticated request
+    app.logger.debug("authenicated")
+    app.logger.debug(claims)
+    app.logger.debug(claims['username'])
+    data = HomeActivities.run(cognito_user_id=claims['username'])
+  except TokenVerifyError as e:
+    # unauthenticated request
+    app.logger.debug(e)
+    app.logger.debug("unauthenicated")
+    data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
