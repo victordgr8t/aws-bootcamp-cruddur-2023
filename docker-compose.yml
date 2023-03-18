@@ -13,6 +13,7 @@ services:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+      AWS_XRAY_SDK_ENABLED: "False"
 
     build: ./backend-flask
     ports:
@@ -25,13 +26,14 @@ services:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_Y6OvSWej5"
-      REACT_APP_CLIENT_ID: "5m9sgimudt8n39j0kijjbvpdjs"
+      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_mfkNpOKDI"
+      REACT_APP_CLIENT_ID: "61tk7gj3vkhfh5uo6ihk1lgrbu"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
     volumes:
       - ./frontend-react-js:/frontend-react-js
+
   
   xray-daemon:
     image: "amazon/aws-xray-daemon"
@@ -40,6 +42,8 @@ services:
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       AWS_REGION: "us-east-1"
       
+
+
     command:
       - "xray -o -b xray-daemon:2000"
     ports:
