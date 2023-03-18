@@ -260,23 +260,103 @@ We'll update ```ProfileInfo.js```
 
 ```
 
-I got an erro while trying to login. Error-  "Incorrect username or password ... "
+I got an error while trying to login. Error-  "Incorrect username or password ... "
 
 <img width="1325" alt="Screen Shot 2023-03-16 at 3 27 20 PM" src="https://user-images.githubusercontent.com/63635704/225631727-82f9c65f-ee35-4986-8771-8911c7e6ce11.png">
 
+I force the password change with this command:
+
+``` aws cognito-idp admin-set-user-password --user-pool-id us-east-1_Y6OvSWej5 --username sparkmind --password Obama456! --permanent ```
+
+If done correctly the login credential would appear just like below:
+
+<img width="1125" alt="Screen Shot 2023-03-18 at 11 49 59 AM" src="https://user-images.githubusercontent.com/63635704/226098234-17290de6-f669-41b6-b01f-0036617bae1f.png">
+
+
+# Signup Page
+On ```signup.js``` file we will update our code 
+```js
+      import { Auth } from 'aws-amplify';
+
+      const [cognitoErrors, setCognitoErrors] = React.useState('');
+
+      const onsubmit = async (event) => {
+        event.preventDefault();
+        setCognitoErrors('')
+        try {
+            const { user } = await Auth.signUp({
+              username: email,
+              password: password,
+              attributes: {
+                  name: name,
+                  email: email,
+                  preferred_username: username,
+              },
+              autoSignIn: { // optional - enables auto sign in after user is confirmed
+                  enabled: true,
+              }
+            });
+            console.log(user);
+            window.location.href = `/confirm?email=${email}`
+        } catch (error) {
+            console.log(error);
+            setCognitoErrors(error.message)
+        }
+        return false
+      }
+
+      let errors;
+      if (cognitoErrors){
+        errors = <div className='errors'>{cognitoErrors}</div>;
+      }
+
+      //before submit component
+      {errors}
+
+```
+
+# Confirmation Page
+In our confirmation page we need to update it with some codes
+
+```js
+   import { Auth } from 'aws-amplify';
+   
+   const resend_code = async (event) => {
+  setErrors('')
+  try {
+    await Auth.resendSignUp(email);
+    console.log('code resent successfully');
+    setCodeSent(true)
+  } catch (err) {
+    // does not return a code
+    // does cognito always return english
+    // for this to be an okay match?
+    console.log(err)
+    if (err.message == 'Username cannot be empty'){
+      setCognitoErrors("You need to provide an email in order to send Resend Activiation Code")   
+    } else if (err.message == "Username/client id combination not found."){
+      setCognitoErrors("Email is invalid or cannot be found.")   
+    }
+  }
+}
+
+const onsubmit = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  try {
+    await Auth.confirmSignUp(email, code);
+    window.location.href = "/"
+  } catch (error) {
+    setErrors(error.message)
+  }
+  return false
+}
+
+   
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+```
 
 
