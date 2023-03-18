@@ -352,10 +352,82 @@ const onsubmit = async (event) => {
   return false
 }
 
-   
+```
+
+I delete the user I created manually then updated ```SignupPage.js``` file to have the user sign up automatically which will send a verification code to your email
+
+<img width="1057" alt="Screen Shot 2023-03-18 at 1 26 06 PM" src="https://user-images.githubusercontent.com/63635704/226102404-4e0707ce-f837-4a4d-a383-b975da8ed0a2.png">
+
+I logged into the management console to confirm the user signup
+
+<img width="1141" alt="Screen Shot 2023-03-18 at 1 28 09 PM" src="https://user-images.githubusercontent.com/63635704/226102826-c3508421-6ca2-47eb-87da-5c4d9599b7ad.png">
+
+I tested the new user Login and it's perfect 
+
+<img width="1113" alt="Screen Shot 2023-03-18 at 1 36 39 PM" src="https://user-images.githubusercontent.com/63635704/226103277-68c0ef82-efdd-4ecc-9125-ac17edd2d88b.png">
 
 
+# Recovery Page
 
+We will have to update our recoverypage file 
+
+```js
+   import { Auth } from 'aws-amplify';
+
+   const onsubmit_send_code = async (event) => {
+     event.preventDefault();
+     setCognitoErrors('')
+     Auth.forgotPassword(username)
+     .then((data) => setFormState('confirm_code') )
+     .catch((err) => setCognitoErrors(err.message) );
+     return false
+   }
+
+   const onsubmit_confirm_code = async (event) => {
+     event.preventDefault();
+     setCognitoErrors('')
+     if (password == passwordAgain){
+       Auth.forgotPasswordSubmit(username, code, password)
+       .then((data) => setFormState('success'))
+       .catch((err) => setCognitoErrors(err.message) );
+     } else {
+       setCognitoErrors('Passwords do not match')
+     }
+     return false
+   }
+
+   ## Authenticating Server Side
+
+   Add in the `HomeFeedPage.js` a header eto pass along the access token
+
+   ```js
+     headers: {
+       Authorization: `Bearer ${localStorage.getItem("access_token")}`
+     }
+
+```
+
+I click on forgot password which took me the recovery password page and sent a verification code to my email. 
+
+<img width="1022" alt="Screen Shot 2023-03-18 at 2 29 30 PM" src="https://user-images.githubusercontent.com/63635704/226106277-5819c982-9a6e-473f-a3ec-85b4f6b5c153.png">
+
+After inputing the verification code and new password, I got a succes message as shown below
+
+<img width="1159" alt="Screen Shot 2023-03-18 at 2 30 08 PM" src="https://user-images.githubusercontent.com/63635704/226106280-5e4e41e7-6cee-4bc5-8d03-e42ffadc7990.png">
+
+
+# Authenticating Server Side
+
+In ```app.py``` I updated cors wiht the code below, hence i was getting a cors error 
+
+```
+   cors = CORS(
+     app, 
+     resources={r"/api/*": {"origins": origins}},
+     headers=['Content-Type', 'Authorization'], 
+     expose_headers='Authorization',
+     methods="OPTIONS,GET,HEAD,POST"
+)
 
 ```
 
