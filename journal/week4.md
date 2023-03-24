@@ -94,11 +94,241 @@ After I interactively logged into postgres I created a database called cruddur a
 
 ```
 
+We can to login in cruddur database we just created with the commands:
+
+```
+    psql postgresql://postgres:<yourpassword>@localhost:5432/cruddur
+
+```
+
+we can also set environment variables to be able to login into the cruddur database
+
+``` 
+   export CONNECTION_URL="postgresql://postgres:<yourpassword>@localhost:5432/cruddur"
+   gp env CONNECTION_URL="postgresql://postgres:<yourpassword>@localhost:5432/cruddur"
+   
+   # command to login into to cruddur data
+   psql $CONNECTION_URL
+
+```
+
+<img width="851" alt="Screen Shot 2023-03-24 at 5 22 27 PM" src="https://user-images.githubusercontent.com/63635704/227568244-eb497119-f990-4bcc-af53-fb81011bf871.png">
+
+
+we will set environment variables for the connection to RDS we created earlier
+
+```
+    export PROD_CONNECTION_URL="postgresql://cruddurroot:<yourpassword>@cruddur-db-instance.cgnmcktcnzzo.us-east-1.rds.amazonaws.com:5432/cruddur
+    gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<yourpassword>@cruddur-db-instance.cgnmcktcnzzo.us-east-1.rds.amazonaws.com:5432/cruddur
+```
+
+
+# Import Script
+
+We'll create a new SQL file called schema.sql and we'll place it in backend-flask/db
+
+# Add UUID Extension
+We are going to have Postgres generate out UUIDs. We'll need to use an extension called:
+
+```
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+```
+
+# Create our tables
+
+https://www.postgresql.org/docs/current/sql-createtable.html
+
+we create a folder db and a fileinside called schema.sql
+
+At the beginig we add the drop tables if existx:
+
+``` 
+    # avoid duplicating the table 
+   DROP TABLE IF EXISTS public.users;
+   DROP TABLE IF EXISTS public.activities;
+   
+  CREATE TABLE public.users (
+      uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      display_name text NOT NULL,
+      handle text NOT NULL,
+      email text NOT NULL,
+      cognito_user_id text NOT NULL,
+      created_at TIMESTAMP default current_timestamp NOT NULL
+   );
+
+  CREATE TABLE public.activities (
+      uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      user_uuid UUID NOT NULL,
+      message text NOT NULL,
+      replies_count integer DEFAULT 0,
+      reposts_count integer DEFAULT 0,
+      likes_count integer DEFAULT 0,
+      reply_to_activity_uuid integer,
+      expires_at TIMESTAMP,
+      created_at TIMESTAMP default current_timestamp NOT NULL
+   );
+   
+```
+
+Still in the backend directory we excute our schema:
+
+```
+    psql -Upostgres cruddur < db/schema.sql -h localhost
+```
+
+# Shell Script to Connect to DB
+
+For things we commonly need to do we can create a new directory called bin
+
+We'll create an new folder called bin to hold all our bash scripts.
+
+```
+    mkdir /workspace/aws-bootcamp-cruddur-2023/backend-flask/bin
+```
+
+We'll create a new bash script ```bin/db-connect```
+
+```
+    #! /usr/bin/bash
+
+    psql $CONNECTION_URL
+```
+
+We'll make it executable:
+
+```
+    #change user permissions to executable
+    chmod 744 bin/db-connect
+    
+    #excute script
+    ./bin/db-connect
+    
+```
+
+# Make prints nicer
+
+We we can make prints for our shell scripts coloured so we can see what we're doing:
+ 
+ ```
+    CYAN='\033[1;36m'
+    NO_COLOR='\033[0m'
+    LABEL="db-schema-load"
+    printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+```
 
 
 
+# Shell script to drop the database
+
+We'll create a new bash script ```bin/db-drop```
+
+```
+    #! /usr/bin/bash
+
+    CYAN='\033[1;36m'
+    NO_COLOR='\033[0m'
+    LABEL="db-drop"
+    printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+    NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+    psql $NO_DB_CONNECTION_URL -c "drop database cruddur;"
+    
+```
+
+# Shell script to create the database
+
+We'll create a new bash script ```bin/db-create```
+
+```
+   #! /usr/bin/bash
+
+    CYAN='\033[1;36m'
+    NO_COLOR='\033[0m'
+    LABEL="db-create"
+    printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+    NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+    psql $NO_DB_CONNECTION_URL -c "create database cruddur;"
+    
+```
 
 
+# Shell script to load the schema
+We'll create a new bash script ```bin/db-schema-load```
+
+```
+    #! /usr/bin/bash
+
+    CYAN='\033[1;36m'
+    NO_COLOR='\033[0m'
+    LABEL="db-schema-load"
+    printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+    schema_path="$(realpath .)/db/schema.sql"
+    echo $schema_path
+
+    if [ "$1" = "prod" ]; then
+      echo "Running in production mode"
+      URL=$PROD_CONNECTION_URL
+    else
+      URL=$CONNECTION_URL
+    fi
+
+    psql $URL cruddur < $schema_path
+
+```
+
+
+# Shell script to load the seed data
+
+Create the script backend-flask/bin/db-seed
+
+```
+    #! /usr/bin/bash
+
+    CYAN='\033[1;36m'
+    NO_COLOR='\033[0m'
+    LABEL="db-seed"
+    printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+    seed_path="$(realpath .)/db/seed.sql"
+    echo $seed_path
+
+    if [ "$1" = "prod" ]; then
+      echo "Running in production mode"
+      URL=$PROD_CONNECTION_URL
+    else
+      URL=$CONNECTION_URL
+    fi
+
+    psql $URL cruddur < $seed_path
+    
+```
+
+Create the file for the seed in backend-flask/db/seed.sql
+
+```
+    -- this file was manually created
+    INSERT INTO public.users (display_name, handle, email, cognito_user_id)
+    VALUES
+      ('Jordi Morreres', 'jordimorreres' , 'jxxx@gmail.com', 'MOCK'),
+      ('Andrew Bayko2', 'bayko2' , 'qxxxx@gmail.com', 'MOCK');
+
+    INSERT INTO public.activities (user_uuid, message, expires_at)
+    VALUES
+      (
+        (SELECT uuid from public.users WHERE users.handle = 'jordimorreres' LIMIT 1),
+        'This was imported as seed Jordi data!',
+        current_timestamp + interval '10 day'
+      )
+      
+```
+
+Next we execute backend-flask/bin/db-seed as shown below
+
+<img width="819" alt="Screen Shot 2023-03-24 at 6 05 40 PM" src="https://user-images.githubusercontent.com/63635704/227580135-0f59410f-da69-4fbc-92e2-5992593d4495.png">
 
 
 
