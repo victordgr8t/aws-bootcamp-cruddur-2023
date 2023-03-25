@@ -103,7 +103,7 @@ We can to login in cruddur database we just created with the commands:
 
 we can also set environment variables to be able to login into the cruddur database
 
-``` 
+```sh 
    export CONNECTION_URL="postgresql://postgres:<yourpassword>@localhost:5432/cruddur"
    gp env CONNECTION_URL="postgresql://postgres:<yourpassword>@localhost:5432/cruddur"
    
@@ -117,7 +117,7 @@ we can also set environment variables to be able to login into the cruddur datab
 
 we will set environment variables for the connection to RDS we created earlier
 
-```
+```sh
     export PROD_CONNECTION_URL="postgresql://cruddurroot:<yourpassword>@cruddur-db-instance.cgnmcktcnzzo.us-east-1.rds.amazonaws.com:5432/cruddur
     gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<yourpassword>@cruddur-db-instance.cgnmcktcnzzo.us-east-1.rds.amazonaws.com:5432/cruddur
 ```
@@ -130,7 +130,7 @@ We'll create a new SQL file called schema.sql and we'll place it in backend-flas
 # Add UUID Extension
 We are going to have Postgres generate out UUIDs. We'll need to use an extension called:
 
-```
+```sh
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 ```
@@ -143,7 +143,7 @@ we create a folder db and a fileinside called schema.sql
 
 At the beginig we add the drop tables if existx:
 
-``` 
+```sql 
     # avoid duplicating the table 
    DROP TABLE IF EXISTS public.users;
    DROP TABLE IF EXISTS public.activities;
@@ -173,7 +173,7 @@ At the beginig we add the drop tables if existx:
 
 Still in the backend directory we excute our schema:
 
-```
+```sql
     psql -Upostgres cruddur < db/schema.sql -h localhost
 ```
 
@@ -183,13 +183,13 @@ For things we commonly need to do we can create a new directory called bin
 
 We'll create an new folder called bin to hold all our bash scripts.
 
-```
+```sh
     mkdir /workspace/aws-bootcamp-cruddur-2023/backend-flask/bin
 ```
 
 We'll create a new bash script ```bin/db-connect```
 
-```
+```sql
     #! /usr/bin/bash
 
     psql $CONNECTION_URL
@@ -197,7 +197,7 @@ We'll create a new bash script ```bin/db-connect```
 
 We'll make it executable:
 
-```
+```sh
     #change user permissions to executable
     chmod 744 bin/db-connect
     
@@ -210,7 +210,7 @@ We'll make it executable:
 
 We we can make prints for our shell scripts coloured so we can see what we're doing:
  
- ```
+ ```sh
     CYAN='\033[1;36m'
     NO_COLOR='\033[0m'
     LABEL="db-schema-load"
@@ -224,7 +224,7 @@ We we can make prints for our shell scripts coloured so we can see what we're do
 
 We'll create a new bash script ```bin/db-drop```
 
-```
+```sh
     #! /usr/bin/bash
 
     CYAN='\033[1;36m'
@@ -241,7 +241,7 @@ We'll create a new bash script ```bin/db-drop```
 
 We'll create a new bash script ```bin/db-create```
 
-```
+```sh
    #! /usr/bin/bash
 
     CYAN='\033[1;36m'
@@ -258,7 +258,7 @@ We'll create a new bash script ```bin/db-create```
 # Shell script to load the schema
 We'll create a new bash script ```bin/db-schema-load```
 
-```
+```sh
     #! /usr/bin/bash
 
     CYAN='\033[1;36m'
@@ -285,7 +285,7 @@ We'll create a new bash script ```bin/db-schema-load```
 
 Create the script backend-flask/bin/db-seed
 
-```
+```sh
     #! /usr/bin/bash
 
     CYAN='\033[1;36m'
@@ -309,7 +309,7 @@ Create the script backend-flask/bin/db-seed
 
 Create the file for the seed in backend-flask/db/seed.sql
 
-```
+```sql
    -- this file was manually created
 INSERT INTO public.users (display_name, handle, email, cognito_user_id)
 VALUES
