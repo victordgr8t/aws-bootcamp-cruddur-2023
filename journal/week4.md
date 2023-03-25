@@ -59,14 +59,13 @@ I launched the RDS database from the command line with the codes above and decid
 
 Next step I launched postrges locally via a docker container to connect to psql via the psql client CLI tool 
 
-```
+```sql
   psql -Upostgres --host localhost
-  
 ```
 
 After I interactively logged into postgres I created a database called cruddur and viewed database created the  with ``\l``
 
-```
+```sql
   CREATE database cruddur;
 ```  
 
@@ -74,7 +73,7 @@ After I interactively logged into postgres I created a database called cruddur a
 
 ### Common PSQL
 
-```
+```sql
     \x on -- expanded display when looking at data
     \q -- Quit PSQL
     \l -- List all databases
@@ -96,9 +95,8 @@ After I interactively logged into postgres I created a database called cruddur a
 
 We can to login in cruddur database we just created with the commands:
 
-```
+```sql
     psql postgresql://postgres:<yourpassword>@localhost:5432/cruddur
-
 ```
 
 we can also set environment variables to be able to login into the cruddur database
@@ -130,9 +128,8 @@ We'll create a new SQL file called schema.sql and we'll place it in backend-flas
 # Add UUID Extension
 We are going to have Postgres generate out UUIDs. We'll need to use an extension called:
 
-```sh
+```sql
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 ```
 
 # Create our tables
