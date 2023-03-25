@@ -358,9 +358,9 @@ VALUES
       
 ```
 
-we try to execute backend-flask/bin/db-seed 
+Next we execute backend-flask/bin/db-seed as shown below
 
-![seed_script](_docs/assets/week4/seed_script.png)
+<img width="819" alt="Screen Shot 2023-03-24 at 6 05 40 PM" src="https://user-images.githubusercontent.com/63635704/227580135-0f59410f-da69-4fbc-92e2-5992593d4495.png">
 
 ## Easily setup (reset) everything for our database
 
@@ -385,9 +385,7 @@ source "$bin_path/db-seed"
 <img width="1162" alt="Screen Shot 2023-03-24 at 9 12 32 PM" src="https://user-images.githubusercontent.com/63635704/227705058-c7bc966e-b035-43e6-804f-ebf94afe7b88.png">
 
 
-Next we execute backend-flask/bin/db-seed as shown below
 
-<img width="819" alt="Screen Shot 2023-03-24 at 6 05 40 PM" src="https://user-images.githubusercontent.com/63635704/227580135-0f59410f-da69-4fbc-92e2-5992593d4495.png">
 
 
 ## Install Postgres Client
